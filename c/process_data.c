@@ -9,8 +9,8 @@ const char HETC[4] = {'H', 'E', 'T', 'C'};
 const int MAX_INPUT_LENGTH = 100002;
 
 int main(int argc, char *argv[]) {
-    if (argc < 4) {
-        fprintf(stderr, "usage: %s source target window_size\n", argv[0]);
+    if (argc < 5) {
+        fprintf(stderr, "usage: %s source target window_size num_examples\n", argv[0]);
         return 1;
     }
 
@@ -25,6 +25,12 @@ int main(int argc, char *argv[]) {
         return 2;
     }
 
+    int num_examples = -1;
+    if ((sscanf(argv[4], "%d", &num_examples) != 1) || num_examples <= 0) {
+        fprintf(stderr, "num_examples should not be positive integer\n");
+        return 3;
+    }
+
 
     FILE *source_file = fopen(source, "r");
     if (!source_file) {
@@ -35,18 +41,20 @@ int main(int argc, char *argv[]) {
     char primary[MAX_INPUT_LENGTH], hetc[MAX_INPUT_LENGTH];
 
     FILE *target_file = fopen(target, "w");
+    fprintf(target_file, "%d %d %d\n", num_examples, window_size * 20, 4);
 
     fscanf(source_file, "%*s %*s %*s");
-    while (fscanf(source_file, "%*s %*s %s %s", primary, hetc) != EOF) {
+    while (fscanf(source_file, "%*s %*s %s %s", primary, hetc) != EOF && num_examples--) {
         size_t len = strlen(primary);
         for (int i = 1; i < len - 1; i++) {
-            for (int j = i - window_size / 2; j <= i + window_size / 2; j++) {
+            for (int j = i - (int)window_size / 2; j <= i + (int)window_size / 2; j++) {
                 for (int k = 0; k < 20; k++) {
                     fputc(primary[j < 1 || j >= len - 1 ? 0 : j] == BASIC_AMINO_ACIDS[k] ? '1' : '0', target_file);
                     fputc(' ', target_file);
                 }
             }
             fputc('\n', target_file);
+
             for (int j = 0; j < 4; j++) {
                 fputc(hetc[i] == HETC[j] ? '1' : '0', target_file);
                 fputc(' ', target_file);
