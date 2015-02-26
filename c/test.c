@@ -20,18 +20,21 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < fann_length_train_data(test_data); i++) {
         fann_type *calc_out = fann_run(ann, test_data->input[i]);
         fann_test(ann, test_data->input[i], test_data->output[i]);
-        //printf("pred: %f %f %f %f\n", calc_out[0], calc_out[1], calc_out[2], calc_out[3]);
-        //printf("true: %f %f %f %f\n", test_data->output[i][0], test_data->output[i][1], test_data->output[i][2], test_data->output[i][3]);
-        if (test_data->output[i][max(calc_out)])
+        int bo = 0;
+        if (test_data->output[i][max(calc_out)]) {
             ans++;
+            bo = 1;
+        }
+        if (bo) putchar('*'); printf("pred: %f %f %f %f\n", calc_out[0], calc_out[1], calc_out[2], calc_out[3]);
+        if (bo) putchar('*'); printf("true: %f %f %f %f\n", test_data->output[i][0], test_data->output[i][1], test_data->output[i][2], test_data->output[i][3]);
     }
 
     printf("MSE error on test data: %f\n", fann_get_MSE(ann));
     printf("bit fail on test data: %u\n", fann_get_bit_fail(ann));
     printf("%d %lf\n", ans, (double)ans / fann_length_train_data(test_data));
 
-    // fann_destroy_train(test_data);
-    // fann_destroy(ann);
+    fann_destroy_train(test_data);
+    fann_destroy(ann);
 
     return 0;
 }

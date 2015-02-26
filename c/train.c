@@ -19,8 +19,8 @@ int main(int argc, char *argv[]) {
     ann = fann_create_standard(num_layers, train_data->num_input, num_neurons_hidden, train_data->num_output);
 
     puts("training network...");
-    fann_set_training_algorithm(ann, FANN_TRAIN_INCREMENTAL); /* try default: fann_set_training_algorithm(ann, FANN_TRAIN_RPROP) */
-    fann_set_learning_momentum(ann, 0.4f); /* momentum only for FANN_TRAIN_INCREMENTAL training (range from 0.0 to 1.0) */
+    fann_set_training_algorithm(ann, FANN_TRAIN_INCREMENTAL);
+    //fann_set_learning_momentum(ann, 0.4f);
 
     fann_train_on_data(ann, train_data, 3000, 10, desired_error);
 
