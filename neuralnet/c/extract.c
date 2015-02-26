@@ -16,6 +16,7 @@ int main(int argc, char *argv[]) {
 
     const char *source = argv[1];
     const char *target = argv[2];
+
     unsigned int window_size;
     if (sscanf(argv[3], "%u", &window_size) != 1) {
         fprintf(stderr, "error: argument window_size should be a unsigned integer\n");
@@ -65,6 +66,8 @@ int main(int argc, char *argv[]) {
 
     fclose(source_file);
     fclose(target_file);
+
+    puts("Done! Do not forget to change the num_examples in the file!");
 
     return 0;
 }

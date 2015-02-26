@@ -10,9 +10,9 @@ int main(int argc, char *argv[]) {
 
     const unsigned int num_layers = 3;
     const unsigned int num_neurons_hidden = 5;
-    const float desired_error = (const float) 0.02; /* ? */
+    const float desired_error = (const float) 0.02;
     struct fann *ann;
-    struct fann_train_data *train_data, *test_data;
+    struct fann_train_data *train_data;
     
     puts("creating network...");
     train_data = fann_read_train_from_file(argv[1]);
@@ -29,8 +29,8 @@ int main(int argc, char *argv[]) {
 
     puts("done!");
 
-    //fann_destory_train(train_data);
-    //fann_destory(ann);
+    fann_destroy_train(train_data);
+    fann_destroy(ann);
 
     return 0;
 }

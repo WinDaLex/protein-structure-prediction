@@ -25,8 +25,8 @@ int main(int argc, char *argv[]) {
             ans++;
             bo = 1;
         }
-        if (bo) putchar('*'); printf("pred: %f %f %f %f\n", calc_out[0], calc_out[1], calc_out[2], calc_out[3]);
-        if (bo) putchar('*'); printf("true: %f %f %f %f\n", test_data->output[i][0], test_data->output[i][1], test_data->output[i][2], test_data->output[i][3]);
+        //if (bo) putchar('*'); printf("pred: %f %f %f %f\n", calc_out[0], calc_out[1], calc_out[2], calc_out[3]);
+        //if (bo) putchar('*'); printf("true: %f %f %f %f\n", test_data->output[i][0], test_data->output[i][1], test_data->output[i][2], test_data->output[i][3]);
     }
 
     printf("MSE error on test data: %f\n", fann_get_MSE(ann));
