@@ -1,10 +1,10 @@
 all: train test extract
 
 train: train.c
-	gcc -o train train.c -lfann -lm
+	gcc -o train.out train.c -lfann -lm
 
 test: test.c
-	gcc -o test test.c -lfann -lm
+	gcc -o test.out test.c -lfann -lm
 
 extract: extract.c
-	gcc -o extract extract.c
+	gcc -o extract.out extract.c
