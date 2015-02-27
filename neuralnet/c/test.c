@@ -22,6 +22,8 @@ int main(int argc, char *argv[]) {
         fann_test(ann, test_data->input[i], test_data->output[i]);
         int bo = 0;
         if (test_data->output[i][max(calc_out)]) {
+        // try ignore T and C
+        //if (test_data->output[i][max(calc_out)] || (max(calc_out) > 1 && (test_data->output[i][2] || test_data->output[i][3]))) {
             ans++;
             bo = 1;
         }
