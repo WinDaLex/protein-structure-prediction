@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < length_data; i++) {
         fann_type *calc_out = fann_run(ann, test_data->input[i]);
         fann_test(ann, test_data->input[i], test_data->output[i]);
-        num_correct += check(calc_out, test_data->output[i], 1) ? 1 : 0;
+        num_correct += check(calc_out, test_data->output[i], 0) ? 1 : 0;
 
         printf("Accuracy: %d / %d = %5.1f%%\t", num_correct, i, (double)num_correct / i * 100);
         process_bar(i, length_data / 100, 20);
